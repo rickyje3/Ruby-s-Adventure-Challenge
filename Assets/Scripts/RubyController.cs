@@ -26,6 +26,7 @@ public class RubyController : MonoBehaviour
     Projectile projectile;
     AudioSource audioSource;
     public AudioClip throwSound;
+    public AudioClip collectedClip;
     public AudioClip hitSound;
     public AudioClip winMusic;
     public AudioClip loseMusic;
@@ -35,12 +36,15 @@ public class RubyController : MonoBehaviour
     public ParticleSystem healthIncrease;
     public ParticleSystem healthDecrease;
     public TextMeshProUGUI FixedRobots;
+    public TextMeshProUGUI CogText;
     public GameObject gameOverText;
     public GameObject winText;
     public GameObject loseText;
     int score = 0;
+    int cogs = 4;
     private TextMeshProUGUI scoreText;
     bool gameOver;
+    public static int level;
 
 
     // Start is called before the first frame update
@@ -52,9 +56,11 @@ public class RubyController : MonoBehaviour
         //Sets health to max at game start
         currentHealth = maxHealth;
         SetScoreText();
+        SetCogText();
         audioSource = GetComponent<AudioSource>();
         winText.SetActive(false);
         loseText.SetActive(false);
+        gameOverText.SetActive(false);
         backgroundMusic.SetActive(true);
     }
 
@@ -90,8 +96,13 @@ public class RubyController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Launch();
-            audioSource.PlayOneShot(throwSound);
+            if (cogs >= 1)
+            {
+                Launch();
+                cogs -= 1;
+                SetCogText();
+                audioSource.PlayOneShot(throwSound);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -101,6 +112,11 @@ public class RubyController : MonoBehaviour
             //if you hit a collider, does nothing
             if (hit.collider != null)
             {
+                if (score == 4)
+                {
+                    SceneManager.LoadScene("Scene2");
+                    level = 2;
+                }
                 //checks if we have a hit then tries to find the nonplayercharacter script on the object the raycast hit
                 //if the script exists on that object the dialog will display
                 NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
@@ -178,6 +194,22 @@ public class RubyController : MonoBehaviour
         animator.SetTrigger("Launch");
     }
 
+    void OnTriggerEnter2D(Collider2D cog)
+    {
+        if (GameObject.FindWithTag("Cog"))
+        {
+            cogs += 4;
+            SetCogText();
+            Destroy(cog.gameObject);
+            PlaySound(collectedClip);
+        }
+    }
+
+    void SetCogText()
+    {
+        CogText.text = "Cogs: " + cogs.ToString();
+    }
+
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
@@ -187,17 +219,18 @@ public class RubyController : MonoBehaviour
     {
         FixedRobots.text = "Robots Fixed: " + score.ToString() + "/4";
 
-        //if (score == 4)
+        if (score == 4)
         {
-            //gameOverText.SetActive(true);
+            gameOverText.SetActive(true);
             {
-                //if (level == 2)
+                if (level == 2)
                 {
 
                     if (score == 4)
                     {
                         winText.SetActive(true);
                         gameOver = true;
+                        gameOverText.SetActive(false);
                         speed = 0;
                         backgroundMusic.SetActive(false);
                         audioSource.Stop();

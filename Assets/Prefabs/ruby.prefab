@@ -108,15 +108,20 @@ MonoBehaviour:
   maxHealth: 5
   projectilePrefab: {fileID: 6702712568299455537, guid: 29570455a6b934e469ebc8f4933cd7f7, type: 3}
   throwSound: {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
+  collectedClip: {fileID: 8300000, guid: af5f8b64e3f58f24c87ff8f789b04f6c, type: 3}
   hitSound: {fileID: 8300000, guid: 9b1bb1f450b7d444fa4a8019d13519a7, type: 3}
-  healthEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
+  winMusic: {fileID: 8300000, guid: f0e37b05d68854f43b0d76ad17399a33, type: 3}
+  loseMusic: {fileID: 8300000, guid: e6883230f2c7d7b4f9b60af1b8964211, type: 3}
+  backgroundMusic: {fileID: 0}
+  healthEffect: {fileID: 3281104563417993076, guid: 0250aa4a36132f2489835193e58cceac, type: 3}
+  hitEffect: {fileID: 4701884365329335902, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
   healthIncrease: {fileID: 0}
-  healthDecrease: {fileID: 0}
+  healthDecrease: {fileID: 8236506541428274672, guid: 4f01be94412d6564ab57b7bab27e5216, type: 3}
   FixedRobots: {fileID: 0}
+  CogText: {fileID: 0}
   gameOverText: {fileID: 0}
   winText: {fileID: 0}
-  scoreText: {fileID: 0}
+  loseText: {fileID: 0}
 --- !u!50 &4572495448406257550
 Rigidbody2D:
   serializedVersion: 4
@@ -194,7 +199,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -291,6 +296,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: HitEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 5009215234363091375, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
+      propertyPath: stopAction
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009215234363091375, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009215234363091375, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
+      propertyPath: ShapeModule.angle
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009215234363091375, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 5047894671788974980, guid: 56a8a11ac158f2b41b84734bf3c6620a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -349,6 +370,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1209040158248739133}
     m_Modifications:
+    - target: {fileID: 1402408237001846057, guid: 0250aa4a36132f2489835193e58cceac, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3281104563417993076, guid: 0250aa4a36132f2489835193e58cceac, type: 3}
       propertyPath: m_Name
       value: HealthEffect
