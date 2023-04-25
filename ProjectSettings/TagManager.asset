@@ -6,6 +6,9 @@ TagManager:
   tags:
   - RubyController
   - Cog
+  - start portal
+  - end portal
+  - Health
   layers:
   - Default
   - TransparentFX

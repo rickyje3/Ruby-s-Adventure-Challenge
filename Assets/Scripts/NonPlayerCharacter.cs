@@ -5,17 +5,20 @@ using UnityEngine;
 public class NonPlayerCharacter : MonoBehaviour
 {
     //stores how long the dialog box is displayed
-    public float displayTime =10.0f;
+    public float displayTime = 10.0f;
     //stores the canvas gameobject so it can be enabled/disabled in the script
     public GameObject dialogBox;
     //stores how long to display our dialog
     float timerDisplay;
+    AudioSource audioSource;
+    public AudioClip interact;
 
     // Start is called before the first frame update
     void Start()
     {
         dialogBox.SetActive(false);
         timerDisplay = -1.0f;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,6 +39,6 @@ public class NonPlayerCharacter : MonoBehaviour
     {
         timerDisplay = displayTime;
         dialogBox.SetActive(true);
+        audioSource.PlayOneShot(interact);
     }
-
 }

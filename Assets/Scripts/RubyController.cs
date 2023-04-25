@@ -33,7 +33,9 @@ public class RubyController : MonoBehaviour
     public GameObject backgroundMusic;
     public GameObject healthEffect;
     public GameObject hitEffect;
+    [HideInInspector]
     public ParticleSystem healthIncrease;
+    [HideInInspector]
     public ParticleSystem healthDecrease;
     public TextMeshProUGUI FixedRobots;
     public TextMeshProUGUI CogText;
@@ -41,10 +43,11 @@ public class RubyController : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
     int score = 0;
-    int cogs = 4;
+    [HideInInspector]
+    public int cogs;
     private TextMeshProUGUI scoreText;
     bool gameOver;
-    public static int level;
+    private static int level;
 
 
     // Start is called before the first frame update
@@ -57,6 +60,7 @@ public class RubyController : MonoBehaviour
         currentHealth = maxHealth;
         SetScoreText();
         SetCogText();
+        cogs = 4;
         audioSource = GetComponent<AudioSource>();
         winText.SetActive(false);
         loseText.SetActive(false);
@@ -194,18 +198,7 @@ public class RubyController : MonoBehaviour
         animator.SetTrigger("Launch");
     }
 
-    void OnTriggerEnter2D(Collider2D cog)
-    {
-        if (GameObject.FindWithTag("Cog"))
-        {
-            cogs += 4;
-            SetCogText();
-            Destroy(cog.gameObject);
-            PlaySound(collectedClip);
-        }
-    }
-
-    void SetCogText()
+    public void SetCogText()
     {
         CogText.text = "Cogs: " + cogs.ToString();
     }
